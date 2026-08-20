@@ -14,7 +14,7 @@ import time
 from pathlib import Path
 from typing import List, Dict
 
-from src.classifier import classify_email
+from src.classifier import classify_email_async
 
 def load_dataset(filepath: str) -> List[Dict]:
     with open(filepath, 'r') as f:
@@ -33,7 +33,7 @@ def run_evaluation(golden_dataset_path: str, prompt_path: str, output_path: str)
         print(f"[{idx+1}/{total_cases}] Evaluating {case['id']}...", end=" ", flush=True)
         
         # 1. Generate prediction
-        output = classify_email(case['email_text'], prompt_path)
+        output = classify_email_async(case['email_text'], prompt_path)
         scored_summary = output.summary
         scored_category = output.category
         
