@@ -1,0 +1,469 @@
+{
+  "timestamp": 1787197905.0076969,
+  "prompt_file": "prompts/support_v1.yaml",
+  "execution_time": 37.92833399772644,
+  "accuracy": 92.15686274509804,
+  "total_cases": 51,
+  "correct_cases": 47,
+  "results": [
+    {
+      "id": "TC-001",
+      "difficulty": "easy",
+      "expected_category": "billing",
+      "scored_category": "billing",
+      "is_category_passed": true,
+      "expected_summary": "User is requesting a copy of last month's invoice.",
+      "scored_summary": "The user is inquiring about how to download their invoice for the previous month."
+    },
+    {
+      "id": "TC-002",
+      "difficulty": "hard",
+      "expected_category": "billing",
+      "scored_category": "technical",
+      "is_category_passed": false,
+      "expected_summary": "User wants to cancel their premium plan but is blocked by app crashes.",
+      "scored_summary": "The user is experiencing an app crash when attempting to cancel their premium plan and is concerned about being charged."
+    },
+    {
+      "id": "TC-051",
+      "difficulty": "hard",
+      "expected_category": "billing",
+      "scored_category": "technical",
+      "is_category_passed": false,
+      "expected_summary": "User wants to cancel their premium plan but is blocked by app crashes.",
+      "scored_summary": "The user is experiencing app crashes when trying to cancel their pro plan, leading to continued charges."
+    },
+    {
+      "id": "TC-003",
+      "difficulty": "easy",
+      "expected_category": "billing",
+      "scored_category": "billing",
+      "is_category_passed": true,
+      "expected_summary": "User reports a double charge for their subscription.",
+      "scored_summary": "The user is inquiring about being charged twice for their subscription this month."
+    },
+    {
+      "id": "TC-004",
+      "difficulty": "hard",
+      "expected_category": "billing",
+      "scored_category": "billing",
+      "is_category_passed": true,
+      "expected_summary": "User is asking how to apply tax exemption to their renewal.",
+      "scored_summary": "The user is seeking guidance on how to remove VAT from their subscription renewal due to their company's tax-exempt status."
+    },
+    {
+      "id": "TC-005",
+      "difficulty": "easy",
+      "expected_category": "billing",
+      "scored_category": "billing",
+      "is_category_passed": true,
+      "expected_summary": "User's card is being declined despite bank approval.",
+      "scored_summary": "The user is experiencing a payment issue where their card is declined despite the bank approving the transaction."
+    },
+    {
+      "id": "TC-006",
+      "difficulty": "easy",
+      "expected_category": "billing",
+      "scored_category": "billing",
+      "is_category_passed": true,
+      "expected_summary": "User is asking if wire transfers are accepted for enterprise payments.",
+      "scored_summary": "The user is inquiring whether they can make a payment for the enterprise tier using a wire transfer instead of a credit card."
+    },
+    {
+      "id": "TC-007",
+      "difficulty": "hard",
+      "expected_category": "billing",
+      "scored_category": "billing",
+      "is_category_passed": true,
+      "expected_summary": "User paid for an upgrade but the features have not activated.",
+      "scored_summary": "The user upgraded to Pro but their limits have not been updated despite being billed."
+    },
+    {
+      "id": "TC-008",
+      "difficulty": "easy",
+      "expected_category": "billing",
+      "scored_category": "billing",
+      "is_category_passed": true,
+      "expected_summary": "User is questioning an unrecognized charge on their statement.",
+      "scored_summary": "The user is inquiring about a mysterious $49 charge on their statement from 'STRIPE*STORE'."
+    },
+    {
+      "id": "TC-009",
+      "difficulty": "hard",
+      "expected_category": "billing",
+      "scored_category": "billing",
+      "is_category_passed": true,
+      "expected_summary": "User wants to dispute a charge but is locked out of their account.",
+      "scored_summary": "The user wants to dispute a charge but is unable to log into their account."
+    },
+    {
+      "id": "TC-010",
+      "difficulty": "easy",
+      "expected_category": "billing",
+      "scored_category": "billing",
+      "is_category_passed": true,
+      "expected_summary": "User is inquiring about prorated refunds for downgrading.",
+      "scored_summary": "The user is inquiring about the availability of prorated refunds for a mid-month downgrade."
+    },
+    {
+      "id": "TC-011",
+      "difficulty": "hard",
+      "expected_category": "billing",
+      "scored_category": "billing",
+      "is_category_passed": true,
+      "expected_summary": "User is requesting a W-9 form for accounting purposes.",
+      "scored_summary": "The user is requesting a W-9 form to process a software invoice."
+    },
+    {
+      "id": "TC-012",
+      "difficulty": "easy",
+      "expected_category": "billing",
+      "scored_category": "billing",
+      "is_category_passed": true,
+      "expected_summary": "User wants to update their billing address.",
+      "scored_summary": "The user is requesting an update to their billing address."
+    },
+    {
+      "id": "TC-013",
+      "difficulty": "easy",
+      "expected_category": "billing",
+      "scored_category": "billing",
+      "is_category_passed": true,
+      "expected_summary": "User received a failed payment notice without an update link.",
+      "scored_summary": "The user is inquiring about a failed payment email and lacks a link to resolve the issue."
+    },
+    {
+      "id": "TC-014",
+      "difficulty": "easy",
+      "expected_category": "technical",
+      "scored_category": "technical",
+      "is_category_passed": true,
+      "expected_summary": "User reports a timeout error when using the CSV export tool.",
+      "scored_summary": "The user is experiencing a timeout error when using the CSV export tool with large files."
+    },
+    {
+      "id": "TC-015",
+      "difficulty": "hard",
+      "expected_category": "technical",
+      "scored_category": "account",
+      "is_category_passed": false,
+      "expected_summary": "User is locked out due to failing backup email for 2FA.",
+      "scored_summary": "The user is unable to access their account due to losing their 2FA phone and not receiving the security code at their backup email."
+    },
+    {
+      "id": "TC-016",
+      "difficulty": "easy",
+      "expected_category": "technical",
+      "scored_category": "technical",
+      "is_category_passed": true,
+      "expected_summary": "User is falsely receiving 429 API rate limit errors.",
+      "scored_summary": "The user is encountering a 429 Too Many Requests error from the API despite being within the rate limit."
+    },
+    {
+      "id": "TC-017",
+      "difficulty": "easy",
+      "expected_category": "technical",
+      "scored_category": "technical",
+      "is_category_passed": true,
+      "expected_summary": "User reports the mobile app freezes on iOS 17 beta.",
+      "scored_summary": "The user is experiencing issues with the mobile app being unresponsive on iOS 17 beta."
+    },
+    {
+      "id": "TC-018",
+      "difficulty": "hard",
+      "expected_category": "technical",
+      "scored_category": "technical",
+      "is_category_passed": true,
+      "expected_summary": "User cannot submit payment info due to a disabled button in Chrome.",
+      "scored_summary": "The user is experiencing an issue with the 'Submit' button being grayed out while trying to add a credit card in Chrome."
+    },
+    {
+      "id": "TC-019",
+      "difficulty": "easy",
+      "expected_category": "technical",
+      "scored_category": "technical",
+      "is_category_passed": true,
+      "expected_summary": "User's webhook integration stopped working at a specific time.",
+      "scored_summary": "The user is experiencing issues with their webhook integration not receiving events."
+    },
+    {
+      "id": "TC-020",
+      "difficulty": "easy",
+      "expected_category": "technical",
+      "scored_category": "technical",
+      "is_category_passed": true,
+      "expected_summary": "User is getting false file size errors when uploading an avatar.",
+      "scored_summary": "The user is encountering an error message stating 'File too large' when trying to upload a 1MB avatar."
+    },
+    {
+      "id": "TC-021",
+      "difficulty": "easy",
+      "expected_category": "technical",
+      "scored_category": "technical",
+      "is_category_passed": true,
+      "expected_summary": "User is reporting a team-wide blank screen outage.",
+      "scored_summary": "The user is experiencing a technical issue where their team is encountering a blank white screen."
+    },
+    {
+      "id": "TC-022",
+      "difficulty": "hard",
+      "expected_category": "technical",
+      "scored_category": "account",
+      "is_category_passed": false,
+      "expected_summary": "User is not receiving the account deletion confirmation email.",
+      "scored_summary": "The user is unable to delete their account due to not receiving the confirmation email."
+    },
+    {
+      "id": "TC-023",
+      "difficulty": "easy",
+      "expected_category": "technical",
+      "scored_category": "technical",
+      "is_category_passed": true,
+      "expected_summary": "User is experiencing extreme latency on the analytics dashboard.",
+      "scored_summary": "The user is experiencing slow loading times of over 30 seconds for analytics widgets on the dashboard."
+    },
+    {
+      "id": "TC-024",
+      "difficulty": "easy",
+      "expected_category": "technical",
+      "scored_category": "technical",
+      "is_category_passed": true,
+      "expected_summary": "User reports unreadable text due to a broken dark mode.",
+      "scored_summary": "The user is experiencing issues with dark mode where some text remains black, making it unreadable."
+    },
+    {
+      "id": "TC-025",
+      "difficulty": "easy",
+      "expected_category": "technical",
+      "scored_category": "technical",
+      "is_category_passed": true,
+      "expected_summary": "User is experiencing an Okta SSO failure with an invalid token error.",
+      "scored_summary": "The user's single sign-on (SSO) via Okta is experiencing a failure due to an 'Invalid SAML token' error."
+    },
+    {
+      "id": "TC-026",
+      "difficulty": "hard",
+      "expected_category": "technical",
+      "scored_category": "technical",
+      "is_category_passed": true,
+      "expected_summary": "User is hitting a 404 error when trying to upgrade their plan.",
+      "scored_summary": "The user encountered a 404 error page when attempting to upgrade their plan."
+    },
+    {
+      "id": "TC-027",
+      "difficulty": "easy",
+      "expected_category": "account",
+      "scored_category": "account",
+      "is_category_passed": true,
+      "expected_summary": "User wants to transfer workspace ownership.",
+      "scored_summary": "The user is asking how to change the primary owner of their workspace."
+    },
+    {
+      "id": "TC-028",
+      "difficulty": "hard",
+      "expected_category": "account",
+      "scored_category": "account",
+      "is_category_passed": true,
+      "expected_summary": "User is submitting a GDPR data deletion request.",
+      "scored_summary": "The user is requesting the permanent deletion of their data under GDPR compliance."
+    },
+    {
+      "id": "TC-029",
+      "difficulty": "easy",
+      "expected_category": "account",
+      "scored_category": "account",
+      "is_category_passed": true,
+      "expected_summary": "User wants to update their login email address.",
+      "scored_summary": "The user wants to update their login email from their old company address to a new one."
+    },
+    {
+      "id": "TC-030",
+      "difficulty": "easy",
+      "expected_category": "account",
+      "scored_category": "account",
+      "is_category_passed": true,
+      "expected_summary": "User is asking if they can merge two accounts.",
+      "scored_summary": "The user is inquiring about the possibility of merging two different accounts without losing data."
+    },
+    {
+      "id": "TC-031",
+      "difficulty": "hard",
+      "expected_category": "account",
+      "scored_category": "account",
+      "is_category_passed": true,
+      "expected_summary": "User forgot password and lost access to recovery email.",
+      "scored_summary": "The user is unable to reset their password due to lack of access to the recovery email."
+    },
+    {
+      "id": "TC-032",
+      "difficulty": "easy",
+      "expected_category": "account",
+      "scored_category": "account",
+      "is_category_passed": true,
+      "expected_summary": "User wants to invite a coworker to their team.",
+      "scored_summary": "The user is seeking assistance with adding a coworker to their team to share project access."
+    },
+    {
+      "id": "TC-033",
+      "difficulty": "easy",
+      "expected_category": "account",
+      "scored_category": "account",
+      "is_category_passed": true,
+      "expected_summary": "User is requesting a temporary account suspension.",
+      "scored_summary": "The user is requesting to temporarily suspend their account due to maternity leave."
+    },
+    {
+      "id": "TC-034",
+      "difficulty": "easy",
+      "expected_category": "account",
+      "scored_category": "account",
+      "is_category_passed": true,
+      "expected_summary": "User is appealing an account ban.",
+      "scored_summary": "The user is inquiring about the reason for their account ban."
+    },
+    {
+      "id": "TC-035",
+      "difficulty": "hard",
+      "expected_category": "account",
+      "scored_category": "account",
+      "is_category_passed": true,
+      "expected_summary": "User wants to downgrade to free without losing saved templates.",
+      "scored_summary": "The user wants to downgrade to the free tier while retaining their saved templates."
+    },
+    {
+      "id": "TC-036",
+      "difficulty": "easy",
+      "expected_category": "account",
+      "scored_category": "account",
+      "is_category_passed": true,
+      "expected_summary": "User is asking how to assign a secondary admin role.",
+      "scored_summary": "The user is inquiring about how to set up a secondary admin for their organization."
+    },
+    {
+      "id": "TC-037",
+      "difficulty": "easy",
+      "expected_category": "account",
+      "scored_category": "account",
+      "is_category_passed": true,
+      "expected_summary": "User wants to correct the spelling of their display name.",
+      "scored_summary": "The user wants to update the spelling of their display name."
+    },
+    {
+      "id": "TC-038",
+      "difficulty": "hard",
+      "expected_category": "account",
+      "scored_category": "account",
+      "is_category_passed": true,
+      "expected_summary": "User wants to know if they can enforce 2FA for their entire workspace.",
+      "scored_summary": "The user is inquiring about the ability to enforce mandatory two-factor authentication for all users in their company workspace."
+    },
+    {
+      "id": "TC-039",
+      "difficulty": "easy",
+      "expected_category": "general",
+      "scored_category": "general",
+      "is_category_passed": true,
+      "expected_summary": "User is inquiring about non-profit discounts.",
+      "scored_summary": "The user is inquiring about the availability of discounts for non-profit organizations."
+    },
+    {
+      "id": "TC-040",
+      "difficulty": "hard",
+      "expected_category": "general",
+      "scored_category": "general",
+      "is_category_passed": true,
+      "expected_summary": "User is providing positive feedback and asking about a dark mode feature.",
+      "scored_summary": "The user is inquiring about the potential addition of a dark mode feature in the application."
+    },
+    {
+      "id": "TC-041",
+      "difficulty": "easy",
+      "expected_category": "general",
+      "scored_category": "general",
+      "is_category_passed": true,
+      "expected_summary": "User is asking about customer support operating hours.",
+      "scored_summary": "The user is inquiring about the standard support hours."
+    },
+    {
+      "id": "TC-042",
+      "difficulty": "easy",
+      "expected_category": "general",
+      "scored_category": "general",
+      "is_category_passed": true,
+      "expected_summary": "User is an agency seeking an enterprise partnership conversation.",
+      "scored_summary": "The user is inquiring about whom to contact regarding an enterprise partnership."
+    },
+    {
+      "id": "TC-043",
+      "difficulty": "easy",
+      "expected_category": "general",
+      "scored_category": "general",
+      "is_category_passed": true,
+      "expected_summary": "User is requesting case studies for marketing teams.",
+      "scored_summary": "The user is inquiring about case studies related to how marketing teams use the product."
+    },
+    {
+      "id": "TC-044",
+      "difficulty": "easy",
+      "expected_category": "general",
+      "scored_category": "general",
+      "is_category_passed": true,
+      "expected_summary": "User is asking for the company's headquarters location.",
+      "scored_summary": "The user is inquiring about the company's headquarters location."
+    },
+    {
+      "id": "TC-045",
+      "difficulty": "easy",
+      "expected_category": "general",
+      "scored_category": "general",
+      "is_category_passed": true,
+      "expected_summary": "User is asking if an AI feature will be added to match a competitor.",
+      "scored_summary": "The user is inquiring whether the company will release a new AI feature in response to a competitor's recent launch."
+    },
+    {
+      "id": "TC-046",
+      "difficulty": "hard",
+      "expected_category": "general",
+      "scored_category": "general",
+      "is_category_passed": true,
+      "expected_summary": "User is looking for a link to the API documentation.",
+      "scored_summary": "The user is inquiring about the availability of the API documentation link."
+    },
+    {
+      "id": "TC-047",
+      "difficulty": "easy",
+      "expected_category": "general",
+      "scored_category": "general",
+      "is_category_passed": true,
+      "expected_summary": "User is expressing dissatisfaction with recent UI changes.",
+      "scored_summary": "The user is unhappy with the recent user interface changes and requests for it to be reverted."
+    },
+    {
+      "id": "TC-048",
+      "difficulty": "easy",
+      "expected_category": "general",
+      "scored_category": "general",
+      "is_category_passed": true,
+      "expected_summary": "User is asking about open product manager roles.",
+      "scored_summary": "The user is inquiring about job openings for product managers."
+    },
+    {
+      "id": "TC-049",
+      "difficulty": "hard",
+      "expected_category": "general",
+      "scored_category": "general",
+      "is_category_passed": true,
+      "expected_summary": "User is asking about custom SLAs for annual contracts.",
+      "scored_summary": "The user is inquiring about the possibility of obtaining a custom Service Level Agreement (SLA) with an annual contract."
+    },
+    {
+      "id": "TC-050",
+      "difficulty": "easy",
+      "expected_category": "general",
+      "scored_category": "general",
+      "is_category_passed": true,
+      "expected_summary": "User is leaving positive feedback for a support agent named David.",
+      "scored_summary": "The user is praising a support agent named David for providing excellent assistance."
+    }
+  ]
+}
