@@ -1,0 +1,410 @@
+[
+  {
+    "id": "TC-001",
+    "email_text": "Where can I download my invoice for last month?",
+    "expected_category": "billing",
+    "expected_summary": "User is requesting a copy of last month's invoice.",
+    "difficulty": "easy",
+    "notes": "Standard billing."
+  },
+  {
+    "id": "TC-002",
+    "email_text": "Your app crashes every time I try to cancel my premium plan! Stop charging me!",
+    "expected_category": "billing",
+    "expected_summary": "User wants to cancel their premium plan but is blocked by app crashes.",
+    "difficulty": "hard",
+    "notes": "Mentions crashes, but primary intent is cancellation/money."
+  },
+  {
+    "id": "TC-051",
+    "email_text": "Your app crashes every time I try to cancel my pro plan! You  guys can't stop charging me enough :(",
+    "expected_category": "billing",
+    "expected_summary": "User wants to cancel their premium plan but is blocked by app crashes.",
+    "difficulty": "hard",
+    "notes": "Mentions crashes, but primary intent is cancellation/money. User is being sarcastic when they say 'You guys can't stop charging me enough'."
+  }, 
+  {
+    "id": "TC-003",
+    "email_text": "I was charged twice this month for my subscription.",
+    "expected_category": "billing",
+    "expected_summary": "User reports a double charge for their subscription.",
+    "difficulty": "easy",
+    "notes": "Standard refund/double charge."
+  },
+  {
+    "id": "TC-004",
+    "email_text": "My company is tax-exempt. How do I remove VAT from my upcoming renewal?",
+    "expected_category": "billing",
+    "expected_summary": "User is asking how to apply tax exemption to their renewal.",
+    "difficulty": "hard",
+    "notes": "Tax-related, requires model to map VAT/tax to billing."
+  },
+  {
+    "id": "TC-005",
+    "email_text": "The payment portal says 'Card Declined' but my bank says it was approved.",
+    "expected_category": "billing",
+    "expected_summary": "User's card is being declined despite bank approval.",
+    "difficulty": "easy",
+    "notes": "Failed payment."
+  },
+  {
+    "id": "TC-006",
+    "email_text": "Can I pay for the enterprise tier using a wire transfer instead of a credit card?",
+    "expected_category": "billing",
+    "expected_summary": "User is asking if wire transfers are accepted for enterprise payments.",
+    "difficulty": "easy",
+    "notes": "Payment methods."
+  },
+  {
+    "id": "TC-007",
+    "email_text": "I upgraded to Pro yesterday, but my limits haven't increased and my card was billed.",
+    "expected_category": "billing",
+    "expected_summary": "User paid for an upgrade but the features have not activated.",
+    "difficulty": "hard",
+    "notes": "Crosses into account limits, but root issue is fulfillment of a billed transaction."
+  },
+  {
+    "id": "TC-008",
+    "email_text": "What is this $49 charge on my statement from 'STRIPE*STORE'?",
+    "expected_category": "billing",
+    "expected_summary": "User is questioning an unrecognized charge on their statement.",
+    "difficulty": "easy",
+    "notes": "Unrecognized charge."
+  },
+  {
+    "id": "TC-009",
+    "email_text": "I want to dispute a charge, but I literally can't even log into my account.",
+    "expected_category": "billing",
+    "expected_summary": "User wants to dispute a charge but is locked out of their account.",
+    "difficulty": "hard",
+    "notes": "Account access vs billing dispute. Priority is resolving the money issue."
+  },
+  {
+    "id": "TC-010",
+    "email_text": "Do you offer prorated refunds if I downgrade mid-month?",
+    "expected_category": "billing",
+    "expected_summary": "User is inquiring about prorated refunds for downgrading.",
+    "difficulty": "easy",
+    "notes": "Refund policy question."
+  },
+  {
+    "id": "TC-011",
+    "email_text": "My accountant needs a W-9 form from you before we can process this month's software invoice.",
+    "expected_category": "billing",
+    "expected_summary": "User is requesting a W-9 form for accounting purposes.",
+    "difficulty": "hard",
+    "notes": "Vendor paperwork related to invoicing."
+  },
+  {
+    "id": "TC-012",
+    "email_text": "Please update the billing address on file to our new HQ.",
+    "expected_category": "billing",
+    "expected_summary": "User wants to update their billing address.",
+    "difficulty": "easy",
+    "notes": "Address update."
+  },
+  {
+    "id": "TC-013",
+    "email_text": "I got an email saying my payment failed, but I didn't get a link to fix it.",
+    "expected_category": "billing",
+    "expected_summary": "User received a failed payment notice without an update link.",
+    "difficulty": "easy",
+    "notes": "Payment recovery."
+  },
+  {
+    "id": "TC-014",
+    "email_text": "The CSV export tool is throwing a timeout error on large files.",
+    "expected_category": "technical",
+    "expected_summary": "User reports a timeout error when using the CSV export tool.",
+    "difficulty": "easy",
+    "notes": "Standard bug report."
+  },
+  {
+    "id": "TC-015",
+    "email_text": "I lost my 2FA phone and can't bypass the security prompt. The code isn't sending to my backup email.",
+    "expected_category": "technical",
+    "expected_summary": "User is locked out due to failing backup email for 2FA.",
+    "difficulty": "hard",
+    "notes": "Account access issue, fundamentally caused by a technical failure."
+  },
+  {
+    "id": "TC-016",
+    "email_text": "Your API is returning a 429 Too Many Requests even though I am well below my rate limit.",
+    "expected_category": "technical",
+    "expected_summary": "User is falsely receiving 429 API rate limit errors.",
+    "difficulty": "easy",
+    "notes": "API issue."
+  },
+  {
+    "id": "TC-017",
+    "email_text": "The mobile app is completely unresponsive on iOS 17 beta.",
+    "expected_category": "technical",
+    "expected_summary": "User reports the mobile app freezes on iOS 17 beta.",
+    "difficulty": "easy",
+    "notes": "OS specific bug."
+  },
+  {
+    "id": "TC-018",
+    "email_text": "I can't add my credit card. The 'Submit' button is grayed out on Chrome but works on Safari.",
+    "expected_category": "technical",
+    "expected_summary": "User cannot submit payment info due to a disabled button in Chrome.",
+    "difficulty": "hard",
+    "notes": "Involves credit card, but it's a browser-specific UI bug."
+  },
+  {
+    "id": "TC-019",
+    "email_text": "My webhook integration stopped receiving events at 3:00 AM PST.",
+    "expected_category": "technical",
+    "expected_summary": "User's webhook integration stopped working at a specific time.",
+    "difficulty": "easy",
+    "notes": "Integration failure."
+  },
+  {
+    "id": "TC-020",
+    "email_text": "Whenever I try to upload my avatar, it says 'File too large' even though it's only 1MB.",
+    "expected_category": "technical",
+    "expected_summary": "User is getting false file size errors when uploading an avatar.",
+    "difficulty": "easy",
+    "notes": "Upload bug."
+  },
+  {
+    "id": "TC-021",
+    "email_text": "Is the system down? My whole team is just getting a blank white screen.",
+    "expected_category": "technical",
+    "expected_summary": "User is reporting a team-wide blank screen outage.",
+    "difficulty": "easy",
+    "notes": "Outage report."
+  },
+  {
+    "id": "TC-022",
+    "email_text": "I'm trying to delete my account but the confirmation email never arrives.",
+    "expected_category": "technical",
+    "expected_summary": "User is not receiving the account deletion confirmation email.",
+    "difficulty": "hard",
+    "notes": "Account deletion intent, but blocked by a technical email delivery failure."
+  },
+  {
+    "id": "TC-023",
+    "email_text": "The dashboard is taking over 30 seconds to load the analytics widgets.",
+    "expected_category": "technical",
+    "expected_summary": "User is experiencing extreme latency on the analytics dashboard.",
+    "difficulty": "easy",
+    "notes": "Performance issue."
+  },
+  {
+    "id": "TC-024",
+    "email_text": "Dark mode is broken; half the text is still black and impossible to read.",
+    "expected_category": "technical",
+    "expected_summary": "User reports unreadable text due to a broken dark mode.",
+    "difficulty": "easy",
+    "notes": "UI/UX bug."
+  },
+  {
+    "id": "TC-025",
+    "email_text": "Our SSO via Okta is failing with an 'Invalid SAML token' error.",
+    "expected_category": "technical",
+    "expected_summary": "User is experiencing an Okta SSO failure with an invalid token error.",
+    "difficulty": "easy",
+    "notes": "Enterprise authentication bug."
+  },
+  {
+    "id": "TC-026",
+    "email_text": "I clicked 'Upgrade Plan' but it just redirected me to a 404 page.",
+    "expected_category": "technical",
+    "expected_summary": "User is hitting a 404 error when trying to upgrade their plan.",
+    "difficulty": "hard",
+    "notes": "Billing intent blocked by a dead link."
+  },
+  {
+    "id": "TC-027",
+    "email_text": "How do I change the primary owner of this workspace?",
+    "expected_category": "account",
+    "expected_summary": "User wants to transfer workspace ownership.",
+    "difficulty": "easy",
+    "notes": "Standard account management."
+  },
+  {
+    "id": "TC-028",
+    "email_text": "Under GDPR, I request all my data be permanently deleted from your servers.",
+    "expected_category": "account",
+    "expected_summary": "User is submitting a GDPR data deletion request.",
+    "difficulty": "hard",
+    "notes": "Legal/compliance aspect, but functionally an account deletion task."
+  },
+  {
+    "id": "TC-029",
+    "email_text": "I need to change my login email from my old company address to my new one.",
+    "expected_category": "account",
+    "expected_summary": "User wants to update their login email address.",
+    "difficulty": "easy",
+    "notes": "Email update."
+  },
+  {
+    "id": "TC-030",
+    "email_text": "Can I merge two different accounts together without losing my data?",
+    "expected_category": "account",
+    "expected_summary": "User is asking if they can merge two accounts.",
+    "difficulty": "easy",
+    "notes": "Account merging."
+  },
+  {
+    "id": "TC-031",
+    "email_text": "I forgot my password and I don't have access to the recovery email anymore.",
+    "expected_category": "account",
+    "expected_summary": "User forgot password and lost access to recovery email.",
+    "difficulty": "hard",
+    "notes": "Could look technical, but it's a standard account recovery flow."
+  },
+  {
+    "id": "TC-032",
+    "email_text": "How do I add my coworker to my team so they can see my projects?",
+    "expected_category": "account",
+    "expected_summary": "User wants to invite a coworker to their team.",
+    "difficulty": "easy",
+    "notes": "Team management."
+  },
+  {
+    "id": "TC-033",
+    "email_text": "Please suspend my account temporarily while I am on maternity leave.",
+    "expected_category": "account",
+    "expected_summary": "User is requesting a temporary account suspension.",
+    "difficulty": "easy",
+    "notes": "Account status change."
+  },
+  {
+    "id": "TC-034",
+    "email_text": "Why was my account banned? I didn't violate the terms of service!",
+    "expected_category": "account",
+    "expected_summary": "User is appealing an account ban.",
+    "difficulty": "easy",
+    "notes": "ToS/Ban appeal."
+  },
+  {
+    "id": "TC-035",
+    "email_text": "I want to downgrade to the free tier, but I want to make sure I don't lose my saved templates.",
+    "expected_category": "account",
+    "expected_summary": "User wants to downgrade to free without losing saved templates.",
+    "difficulty": "hard",
+    "notes": "Mentions downgrade (billing), but the core question is about account data retention."
+  },
+  {
+    "id": "TC-036",
+    "email_text": "How do I set up a secondary admin for my organization?",
+    "expected_category": "account",
+    "expected_summary": "User is asking how to assign a secondary admin role.",
+    "difficulty": "easy",
+    "notes": "Role management."
+  },
+  {
+    "id": "TC-037",
+    "email_text": "I need to update my display name, it's spelling my name wrong.",
+    "expected_category": "account",
+    "expected_summary": "User wants to correct the spelling of their display name.",
+    "difficulty": "easy",
+    "notes": "Profile update."
+  },
+  {
+    "id": "TC-038",
+    "email_text": "Can I enforce mandatory 2FA for everyone in my company workspace?",
+    "expected_category": "account",
+    "expected_summary": "User wants to know if they can enforce 2FA for their entire workspace.",
+    "difficulty": "hard",
+    "notes": "Security setting, but applied at the workspace/account management level."
+  },
+  {
+    "id": "TC-039",
+    "email_text": "Do you offer discounts for non-profits?",
+    "expected_category": "general",
+    "expected_summary": "User is inquiring about non-profit discounts.",
+    "difficulty": "easy",
+    "notes": "Standard sales inquiry."
+  },
+  {
+    "id": "TC-040",
+    "email_text": "I love the new update! Are you planning to add a dark mode soon?",
+    "expected_category": "general",
+    "expected_summary": "User is providing positive feedback and asking about a dark mode feature.",
+    "difficulty": "hard",
+    "notes": "Feature request/feedback; shouldn't confuse 'update' with a technical bug."
+  },
+  {
+    "id": "TC-041",
+    "email_text": "What are your standard support hours?",
+    "expected_category": "general",
+    "expected_summary": "User is asking about customer support operating hours.",
+    "difficulty": "easy",
+    "notes": "Basic FAQ."
+  },
+  {
+    "id": "TC-042",
+    "email_text": "We are a large agency and want to discuss an enterprise partnership. Who can we talk to?",
+    "expected_category": "general",
+    "expected_summary": "User is an agency seeking an enterprise partnership conversation.",
+    "difficulty": "easy",
+    "notes": "Sales/Partnership routing."
+  },
+  {
+    "id": "TC-043",
+    "email_text": "Do you have any case studies on how marketing teams use your product?",
+    "expected_category": "general",
+    "expected_summary": "User is requesting case studies for marketing teams.",
+    "difficulty": "easy",
+    "notes": "Marketing/content request."
+  },
+  {
+    "id": "TC-044",
+    "email_text": "Where is your company headquartered?",
+    "expected_category": "general",
+    "expected_summary": "User is asking for the company's headquarters location.",
+    "difficulty": "easy",
+    "notes": "General information."
+  },
+  {
+    "id": "TC-045",
+    "email_text": "Your competitor just released an AI feature, will you guys do the same?",
+    "expected_category": "general",
+    "expected_summary": "User is asking if an AI feature will be added to match a competitor.",
+    "difficulty": "easy",
+    "notes": "Roadmap question."
+  },
+  {
+    "id": "TC-046",
+    "email_text": "Is there a link to your API documentation? I can't find it in the footer.",
+    "expected_category": "general",
+    "expected_summary": "User is looking for a link to the API documentation.",
+    "difficulty": "hard",
+    "notes": "Mentions API, but it's a navigational/documentation question, not a bug."
+  },
+  {
+    "id": "TC-047",
+    "email_text": "I really hated the recent UI changes. Please change it back.",
+    "expected_category": "general",
+    "expected_summary": "User is expressing dissatisfaction with recent UI changes.",
+    "difficulty": "easy",
+    "notes": "Product feedback/complaint."
+  },
+  {
+    "id": "TC-048",
+    "email_text": "Are you guys hiring product managers? I'd love to apply.",
+    "expected_category": "general",
+    "expected_summary": "User is asking about open product manager roles.",
+    "difficulty": "easy",
+    "notes": "Recruiting inquiry."
+  },
+  {
+    "id": "TC-049",
+    "email_text": "Can I get a custom SLA if I sign an annual contract?",
+    "expected_category": "general",
+    "expected_summary": "User is asking about custom SLAs for annual contracts.",
+    "difficulty": "hard",
+    "notes": "Sales/legal inquiry that touches on billing concepts."
+  },
+  {
+    "id": "TC-050",
+    "email_text": "Just wanted to say your support agent David was amazing today. Give him a raise!",
+    "expected_category": "general",
+    "expected_summary": "User is leaving positive feedback for a support agent named David.",
+    "difficulty": "easy",
+    "notes": "Praise/kudos."
+  }
+]
