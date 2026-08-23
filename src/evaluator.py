@@ -117,7 +117,7 @@ async def run_async_evaluation(golden_dataset_path: str, prompt_path: str, outpu
                 "avg_latency_seconds": avg_latency,
                 "total_tokens": total_tokens
             },
-            "execution_time": execution_time,
+            "execution_time_seconds": execution_time,
             "total_cases": total_cases,
             "correct_cases": correct_categories,
             "results": detailed_results
