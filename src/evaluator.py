@@ -9,68 +9,115 @@ Architecture/Flow:
 """
 
 import json
-import sys
+import asyncio
 import time
 from pathlib import Path
 from typing import List, Dict
 
+import os
+from openai import AsyncOpenAI
 from src.classifier import classify_email_async
+from src.models import ScoredSummaryRelevance
+
+client = AsyncOpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 def load_dataset(filepath: str) -> List[Dict]:
     with open(filepath, 'r') as f:
         return json.load(f)
 
-def run_evaluation(golden_dataset_path: str, prompt_path: str, output_path: str):
+async def score_summary_relevance(expected_summary: str, scored_summary: str) -> int:
+    """LLM-as-a-judge: Rates summary relevance from 1 to 5."""
+    prompt = f"""
+    Compare the scored summary to the expected ground-truth summary.
+    Expected: {expected_summary}
+    Scored: {scored_summary}
+    
+    Rate the semantic similarity and factual accuracy of the Scored summary on a scale of 1 to 5.
+    5 = Perfect match in meaning, 1 = Completely irrelevant or contradictory.
+    Output ONLY the integer (1, 2, 3, 4, or 5).
+    """
+    
+    try:
+        response = await client.beta.chat.completions.parse(
+            model="gpt-4o-mini",
+            messages=[{"role": "user", "content": prompt}],
+            temperature=0.0,
+            response_format=ScoredSummaryRelevance
+        )
+        return int(response.choices[0].message.parsed.relevance_score)
+        # return response
+    except Exception as e:
+        return 0
+        # return e
+
+async def evaluate_single_case(case: dict, prompt_path: str) -> dict:
+    """Run a single test case through the classifier & LLM judge."""
+    # 1. Classify the email
+    response = await classify_email_async(case['email_text'], prompt_path)
+    scored_category = response["output"].category
+    scored_summary = response["output"].summary
+    
+    # 2. LLM-as-judge for Summary Relevance Score
+    summary_relevance_score = await score_summary_relevance(case['expected_summary'], scored_summary)
+    
+    # 3. Now we have the scored category + summary + summary relevance score
+    is_category_passed = scored_category == case['expected_category']
+    result = {
+        "id": case["id"],
+        "difficulty": case["difficulty"],
+        "expected_category": case["expected_category"],
+        "scored_category": scored_category,
+        "is_category_passed": is_category_passed,
+        "expected_summary": case["expected_summary"],
+        "scored_summary": scored_summary,
+        "summary_score_1_to_5": summary_relevance_score,
+        "latency_seconds": round(response["latency_seconds"], 2),
+        "total_tokens": response["total_tokens"]
+    }
+    
+    return result
+    
+    
+
+async def run_async_evaluation(golden_dataset_path: str, prompt_path: str, output_path: str):
     dataset = load_dataset(golden_dataset_path)
     total_cases = len(dataset)
-    correct_categories = 0
-    detailed_results = []
-    
-    print(f"Starting evaluation using {prompt_path} on {total_cases} cases...\n")
+    print(f"Starting async evaluation for {total_cases} cases using {prompt_path}...")
     start_time = time.time()
+
+    # Run all cases concurrently
+    tasks = [evaluate_single_case(case, prompt_path) for case in dataset]
+    detailed_results = await asyncio.gather(*tasks)
     
-    for idx, case in enumerate(dataset):
-        print(f"[{idx+1}/{total_cases}] Evaluating {case['id']}...", end=" ", flush=True)
-        
-        # 1. Generate prediction
-        output = classify_email_async(case['email_text'], prompt_path)
-        scored_summary = output.summary
-        scored_category = output.category
-        
-        # 2. Score Category Match
-        expected_category = case['expected_category']
-        is_category_passed = (scored_category == expected_category)
-        if is_category_passed:
-            correct_categories += 1
-            print("Pass!")
-        else:
-            print(f"FAIL (Expected: {expected_category}, Got: {scored_category})")
-        
-        # 3. Record details for this test case
-        detailed_results.append({
-            "id": case["id"],
-            "difficulty": case["difficulty"],
-            "expected_category": case["expected_category"],
-            "scored_category": scored_category,
-            "is_category_passed": is_category_passed,
-            "expected_summary": case["expected_summary"],
-            "scored_summary": scored_summary
-        })
-        
+    
     execution_time = time.time() - start_time
-    accuracy = (correct_categories / total_cases) * 100
     
-    print("\n" + "="*30)
-    print("Evaluation Complete")
-    print("="*30)
-    print(f"Accuracy: {accuracy:.1f}% ({correct_categories}/{total_cases})")
-    print(f"Time:      {execution_time:.2f} seconds")
+    # Aggregate metrics
+    correct_categories = sum(1 for r in detailed_results if r["is_category_passed"])
+    avg_summary_score = sum(r["summary_score_1_to_5"] for r in detailed_results) / len(detailed_results)
+    avg_latency = sum(r["latency_seconds"] for r in detailed_results) / len(detailed_results)
+    total_tokens = sum(r["total_tokens"] for r in detailed_results)
+    accuracy = (correct_categories / len(dataset)) * 100
+    
+    print("\n" + "="*40)
+    print("Async evaluation complete")
+    print("="*40)
+    print(f"Category Accuracy: {accuracy:.1f}% ({correct_categories}/{len(dataset)})")
+    print(f"Avg Summary Score: {avg_summary_score:.2f} / 5.0")
+    print(f"Avg Latency:       {avg_latency:.2f} seconds/req")
+    print(f"Total Tokens:      {total_tokens}")
+    print(f"Total Wall Time:   {execution_time:.2f} seconds (Async Speedup!)")
     
     run_snapshot = {
             "timestamp": time.time(),
             "prompt_file": prompt_path,
+            "metrics": {
+                "accuracy": accuracy,
+                "avg_summary_score": avg_summary_score,
+                "avg_latency_seconds": avg_latency,
+                "total_tokens": total_tokens
+            },
             "execution_time": execution_time,
-            "accuracy": accuracy,
             "total_cases": total_cases,
             "correct_cases": correct_categories,
             "results": detailed_results
@@ -81,8 +128,8 @@ def run_evaluation(golden_dataset_path: str, prompt_path: str, output_path: str)
     print(f"\n Results saved to {output_path}")
     
 if __name__ == "__main__":
-    run_evaluation(
-        "data/golden_dataset.json",
-        prompt_path="prompts/support_v1.yaml",
-        output_path="data/eval_runs/latest_run.json"
-    )
+    asyncio.run(run_async_evaluation(
+            "data/golden_dataset.json",
+            prompt_path="prompts/support_v1.yaml",
+            output_path="data/eval_runs/async_run_aug23.json"
+    ))
