@@ -1,4 +1,4 @@
-from src.classifier import classify_email
+from src.classifier import classify_email_async
 
 dummy_email = """
 
@@ -10,7 +10,7 @@ Sarah
 
 if __name__ == "__main__":
     print("Sending email to LLM...")
-    result = classify_email(dummy_email, "prompts/support_v1.yaml")
+    result = classify_email_async(dummy_email, "prompts/support_v1.yaml")
     print("\n---- LLM Response ---- ")
     # print(f"Cateogory: {result.category}")
     # print(f"Summary: {result.summary}")
