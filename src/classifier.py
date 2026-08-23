@@ -14,7 +14,7 @@ def load_prompt_config(filepath: str) -> dict:
     with open(filepath, 'r') as file:
         return yaml.safe_load(file)
     
-async def classify_email_async(email_text: str, prompt_filepath: str) -> ClassificationOutput:
+async def classify_email_async(email_text: str, prompt_filepath: str) -> dict:
     config = load_prompt_config(prompt_filepath)
     start_time = time.time()
     response = await client.beta.chat.completions.parse(
@@ -30,7 +30,7 @@ async def classify_email_async(email_text: str, prompt_filepath: str) -> Classif
 
     return {
         "output": response.choices[0].message.parsed,
-        "tokens": response.usage.total_tokens,
+        "total_tokens": response.usage.total_tokens,
         "latency_seconds": latency
     }
         
