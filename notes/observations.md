@@ -1,0 +1,1 @@
+Each time the LLM eval pipeline is run, even if you run it, say, four different times on the exact same golden dataset, the exact same data, you will still get varying results for the accuracy metric. For example, in one run, you can get 90, and in another run, you can get 92.
