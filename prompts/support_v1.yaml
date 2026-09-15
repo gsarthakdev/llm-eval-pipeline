@@ -1,5 +1,6 @@
 version: "1.0"
-model: "gpt-4o-mini"
+# model: "gpt-4o-mini"
+model: "openai/gpt-oss-20b"
 timestamp: "2026-08-20T00:00:00Z"
 system_prompt: >
   You are an expert customer support routing assistant.
