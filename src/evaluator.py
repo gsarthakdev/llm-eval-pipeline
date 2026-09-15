@@ -15,12 +15,16 @@ from pathlib import Path
 from typing import List, Dict
 
 import os
-from openai import AsyncOpenAI
+from openai import AsyncOpenAI, APIStatusError
 from src.classifier import classify_email_async
 from src.models import ScoredSummaryRelevance
 
 # client = AsyncOpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 client = AsyncOpenAI(api_key=os.getenv("GROQ_API_KEY"), base_url="https://api.groq.com/openai/v1")
+
+MAX_RETRIES = 5
+# Keep concurrency modest so we don't get rate-limited fighting ourselves.
+MAX_CONCURRENT_REQUESTS = 5
 
 def load_dataset(filepath: str) -> List[Dict]:
     with open(filepath, 'r') as f:
@@ -39,21 +43,31 @@ async def score_summary_relevance(expected_summary: str, scored_summary: str) ->
     """
 
     try:
-        response = await client.beta.chat.completions.parse(
-            # model="gpt-4o-mini",
-            model="openai/gpt-oss-20b",
-            messages=[{"role": "user", "content": prompt}],
-            temperature=0.0,
-            response_format=ScoredSummaryRelevance
-        )
-        return int(response.choices[0].message.parsed.relevance_score)
-        # return response
+        for attempt in range(MAX_RETRIES):
+            try:
+                response = await client.beta.chat.completions.parse(
+                    # model="gpt-4o-mini",
+                    model="openai/gpt-oss-20b",
+                    messages=[{"role": "user", "content": prompt}],
+                    temperature=0.0,
+                    response_format=ScoredSummaryRelevance
+                )
+            except APIStatusError as e:
+                if attempt == MAX_RETRIES - 1 or e.status_code not in (429, 500, 502, 503):
+                    raise
+                await asyncio.sleep(2 ** attempt)
+                continue
+            return int(response.choices[0].message.parsed.relevance_score)
     except Exception as e:
         return 0
         # return e
 
-async def evaluate_single_case(case: dict, prompt_path: str) -> dict:
+async def evaluate_single_case(case: dict, prompt_path: str, semaphore: asyncio.Semaphore) -> dict:
     """Run a single test case through the classifier & LLM judge."""
+    async with semaphore:
+        return await _evaluate_single_case(case, prompt_path)
+
+async def _evaluate_single_case(case: dict, prompt_path: str) -> dict:
     # 1. Classify the email
     response = await classify_email_async(case['email_text'], prompt_path)
     scored_category = response["output"].category
@@ -87,8 +101,9 @@ async def run_async_evaluation(golden_dataset_path: str, prompt_path: str, outpu
     print(f"Starting async evaluation for {total_cases} cases using {prompt_path}...")
     start_time = time.time()
 
-    # Run all cases concurrently
-    tasks = [evaluate_single_case(case, prompt_path) for case in dataset]
+    # Run all cases concurrently, bounded so we don't overwhelm the free-tier model
+    semaphore = asyncio.Semaphore(MAX_CONCURRENT_REQUESTS)
+    tasks = [evaluate_single_case(case, prompt_path, semaphore) for case in dataset]
     detailed_results = await asyncio.gather(*tasks)
 
 
