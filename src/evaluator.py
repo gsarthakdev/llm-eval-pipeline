@@ -40,26 +40,37 @@ async def score_summary_relevance(expected_summary: str, scored_summary: str) ->
 
     Rate the semantic similarity and factual accuracy of the Scored summary on a scale of 1 to 5.
     5 = Perfect match in meaning, 1 = Completely irrelevant or contradictory.
-    Output ONLY the integer (1, 2, 3, 4, or 5).
+    Respond with ONLY a JSON object matching this schema: {{"relevance_score": 1 | 2 | 3 | 4 | 5}}
     """
 
     try:
         for attempt in range(MAX_RETRIES):
             await throttle()
             try:
-                response = await client.beta.chat.completions.parse(
+                # Groq's gpt-oss models can misbehave with the tool-calling-based
+                # .parse() helper, so use plain JSON mode instead and validate
+                # the result ourselves.
+                response = await client.chat.completions.create(
                     # model="gpt-4o-mini",
                     model="openai/gpt-oss-20b",
                     messages=[{"role": "user", "content": prompt}],
                     temperature=0.0,
-                    response_format=ScoredSummaryRelevance
+                    response_format={"type": "json_object"}
                 )
             except APIStatusError as e:
                 if attempt == MAX_RETRIES - 1 or e.status_code not in (429, 500, 502, 503):
                     raise
                 await asyncio.sleep(2 ** attempt)
                 continue
-            return int(response.choices[0].message.parsed.relevance_score)
+
+            try:
+                parsed = ScoredSummaryRelevance.model_validate_json(response.choices[0].message.content)
+            except Exception:
+                if attempt == MAX_RETRIES - 1:
+                    return 0
+                await asyncio.sleep(2 ** attempt)
+                continue
+            return int(parsed.relevance_score)
     except Exception as e:
         return 0
         # return e
