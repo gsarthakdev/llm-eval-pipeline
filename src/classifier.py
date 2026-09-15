@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 # from openai import OpenAI
 from openai import AsyncOpenAI, APIStatusError
 from src.models import ClassificationOutput
+from src.rate_limiter import throttle
 
 load_dotenv()
 # client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
@@ -23,6 +24,7 @@ async def classify_email_async(email_text: str, prompt_filepath: str) -> dict:
     start_time = time.time()
 
     for attempt in range(MAX_RETRIES):
+        await throttle()
         try:
             response = await client.beta.chat.completions.parse(
                 model=config["model"],

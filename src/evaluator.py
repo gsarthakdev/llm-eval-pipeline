@@ -18,6 +18,7 @@ import os
 from openai import AsyncOpenAI, APIStatusError
 from src.classifier import classify_email_async
 from src.models import ScoredSummaryRelevance
+from src.rate_limiter import throttle
 
 # client = AsyncOpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 client = AsyncOpenAI(api_key=os.getenv("GROQ_API_KEY"), base_url="https://api.groq.com/openai/v1")
@@ -44,6 +45,7 @@ async def score_summary_relevance(expected_summary: str, scored_summary: str) ->
 
     try:
         for attempt in range(MAX_RETRIES):
+            await throttle()
             try:
                 response = await client.beta.chat.completions.parse(
                     # model="gpt-4o-mini",
